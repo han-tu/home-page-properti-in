@@ -203,9 +203,9 @@
 <script>
     let queryString = decodeURIComponent(window.location.search);
     queryString = queryString.substring(1);
-    let queries = queryString.split("=");
-    let opt = queries[1];
-    let uniq = generateRandom();
+    let queries = queryString.split("&");
+    let opt = queries[0].split("=")[1];
+    let uniq = queries[1].split("=")[1];
 
     if(opt == 'o1') {
         $("#free").removeClass('d-none');
@@ -225,8 +225,6 @@
         $("#uniq").text(uniq);
     }
 
-    function generateRandom() {
-        return Math.floor(Math.random() * (999 - 100)) + 100;
-    }
+    
 
 </script>

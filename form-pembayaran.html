@@ -239,8 +239,9 @@
 <script>
     function redir() {
         let check = checkSub();
-        
-        let redirUrl = 'pemesanan-berhasil.html' + '?opt=' + check ;
+        let uniq = generateRandom();
+
+        let redirUrl = 'pemesanan-berhasil.html' + '?opt=' + check + '&unq=' + uniq ;
 
         // Disini taro API GERI
 
@@ -257,6 +258,10 @@
         if (o1) return 'o1';
         if (o2) return 'o2';
         if (o3) return 'o3';
+    }
+
+    function generateRandom() {
+        return Math.floor(Math.random() * (999 - 100)) + 100;
     }
 
 </script>

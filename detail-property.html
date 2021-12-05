@@ -13,7 +13,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
-
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
@@ -58,27 +60,28 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <img src="https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg" alt=""
-                                    class="img-fluid card-img-top mb-3">
-                                <h4 class="small text-secondary"><i class="fa fa-map-marker" aria-hidden="true"></i> Keputih, Surabaya</h4>
+                                <img src="" alt="" class="img-fluid card-img-top mb-3" id="foto">
+                                <h4 class="small text-secondary" id="loc"></h4>
                             </div>
                             <div class="col-md-6">
-                                <h3 class="mb-0 pb-0"><i class="fa fa-home" aria-hidden="true"></i> Judul Properti</h3>
-                                <p class="text-secondary mt-0 pt-0">by @Username</p>
+                                <h3 class="mb-0 pb-0" id="judul"></h3>
+                                <p class="text-secondary mt-0 pt-0" id="username"></p>
                                 <h4>Deskripsi</h4>
-                                <p style="text-align: justify;">Rumah berukuran sedang dengan luas tanah 50x50 meter. Terdiri dari 3 Ruang tidur, 2 Kamar Mandi, 1 Ruang Tamu, 1 Ruang keluarga, dan 1 Garasi. Tanah berada pada dataran tinggi sehingga dapat mencegah terjadinya banjir. lalala</p>
+                                <p style="text-align: justify;" id="desc"></p>
                                 <div class="card-body bg-light my-2">
                                     <div class="row">
                                         <div class="col-sm-3 border-end">
                                             Informasi Harga:
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="btn btn-success disabled">Hubungi Pemilik</p>
+                                            <p class="btn btn-success disabled" id="harga"></p>
                                         </div>
                                     </div>
                                 </div>
-                                <a href="" class="btn btn-primary d-inline-block"><i class="fa fa-phone" aria-hidden="true"></i> Hubungi Sekarang</a>
-                                <a href="" class="btn btn-primary d-inline-block"><i class="fa fa-eye" aria-hidden="true"></i> Kunjungi Properti</a>
+                                <a href="" class="btn btn-primary d-inline-block" id="call"><i class="fa fa-phone"
+                                        aria-hidden="true"></i> Hubungi Sekarang</a>
+                                <a href="" class="btn btn-primary d-inline-block"><i class="fa fa-eye"
+                                        aria-hidden="true"></i> Kunjungi Properti</a>
                             </div>
                         </div>
                     </div>
@@ -103,6 +106,35 @@
 
 <script>
 
+    let queryString = decodeURIComponent(window.location.search);
+    queryString = queryString.substring(1);
+    let id = queryString.split("=")[1].toLowerCase();
+
+    $.ajax({
+        url: "http://bapi.gerrysihaj.com/api/list_all_environment",
+        type: "GET",
+        contentType: "application/json",
+        success: function (data) {
+            data.forEach(element => {
+                if (element['id'] == id) {
+                    let sr ;
+                    if (element['panoramas'].length > 0)
+                        sr = "http://bapi.gerrysihaj.com/api/panorama_image?path=" + element['panoramas'][0]['image_name'];
+                    else 
+                        sr = "assets/no-image.jpg";
+
+                    document.getElementById('foto').src = sr;
+                    document.getElementById('loc').innerHTML = "<i class='fa fa-map-marker' aria-hidden='true'></i> " + element['location'];
+                    document.getElementById('judul').innerHTML = "<i class='fa fa-home' aria-hidden='true'></i> " + element['name'];
+                    document.getElementById('username').innerHTML = "by @" + element['user']['name'];
+                    document.getElementById('desc').innerHTML = element['description'];
+                    document.getElementById('harga').innerHTML = element['price'];
+                    document.getElementById('call').href = "mailto:" + element['user']['email'];
+                }
+            });
+
+        }
+    });
 
 </script>
 

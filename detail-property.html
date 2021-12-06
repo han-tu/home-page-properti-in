@@ -81,7 +81,7 @@
                                 </div>
                                 <a href="" class="btn btn-primary d-inline-block" id="call"><i class="fa fa-phone"
                                         aria-hidden="true"></i> Hubungi Sekarang</a>
-                                <a href="" class="btn btn-primary d-inline-block"><i class="fa fa-eye"
+                                <a href="" class="btn btn-primary d-inline-block" id="visit"><i class="fa fa-eye"
                                         aria-hidden="true"></i> Kunjungi Properti</a>
                             </div>
                         </div>
@@ -131,6 +131,7 @@
                     document.getElementById('desc').innerHTML = element['description'];
                     document.getElementById('harga').innerHTML = element['price'];
                     document.getElementById('call').href = "mailto:" + element['user']['email'];
+                    document.getElementById('visit').href = "http://localhost:3000/edit_environment?id=" + element['id'];
                 }
             });
 

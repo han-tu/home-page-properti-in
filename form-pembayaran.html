@@ -13,7 +13,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
-
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
@@ -238,6 +240,7 @@
 </body>
 
 <script>
+    let tipe ;
     function redir() {
         let check = checkSub();
         let uniq = generateRandom();
@@ -245,10 +248,32 @@
         let redirUrl = 'pemesanan-berhasil.html' + '?opt=' + check + '&unq=' + uniq ;
 
         // Disini taro API GERI
+        addPesanan();
 
         setTimeout(function () {
             location.replace(redirUrl);
         }, 3000);
+    }
+
+    function addPesanan() {
+        let email = document.getElementById('email').value
+		let body = {
+			'email': email,
+			'tipe': tipe
+		}
+
+		$.ajax({
+			url: 'http://bapi.gerrysihaj.com/api/subscribe',
+			type: 'POST',
+			data: body,
+			headers: {
+				'Access-Control-Allow-Origin': '*'
+			},
+			success: function (data) {
+				console.log('yeyyy')
+				console.log(data)
+			}
+		})
     }
 
     function checkSub() {
@@ -256,9 +281,18 @@
         let o2 = document.getElementById('option2').checked;
         let o3 = document.getElementById('option3').checked;
 
-        if (o1) return 'o1';
-        if (o2) return 'o2';
-        if (o3) return 'o3';
+        if (o1) {
+            tipe = "trial";
+            return 'o1';
+        }
+        if (o2) {
+            tipe = "pro";
+            return 'o2';
+        }
+        if (o3) {
+            tipe = "ultimate";
+            return 'o3';
+        }
     }
 
     function generateRandom() {

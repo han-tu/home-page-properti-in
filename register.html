@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Properti.in</title>
-    <link rel="icon" type="image/x-icon" href="assets/p.png" />
+    <link rel="icon" type="image/x-icon" href="assets/p.png"/>
     <!-- Font Icon -->
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
 
@@ -28,85 +28,84 @@
 
 <body>
 
-    <div class="main">
+<div class="main">
 
-        <div class="container">
-            <div class="sign-up-content">
-                <form action="" class="signup-form">
-                    <h2 class="form-title">Buat Akun</h2>
+    <div class="container">
+        <div class="sign-up-content">
+            <form action="" class="signup-form">
+                <h2 class="form-title">Buat Akun</h2>
 
-                    <div class="form-textbox">
-                        <label for="name">Nama</label>
-                        <input type="text" name="name" id="name" required/>
-                    </div>
+                <div class="form-textbox">
+                    <label for="name">Nama</label>
+                    <input type="text" name="name" id="name" required/>
+                </div>
 
-                    <div class="form-textbox">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" id="email" required/>
-                    </div>
+                <div class="form-textbox">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" required/>
+                </div>
 
-                    <div class="form-textbox">
-                        <label for="pass">Password</label>
-                        <input type="password" name="pass" id="pass" required/>
-                    </div>
+                <div class="form-textbox">
+                    <label for="pass">Password</label>
+                    <input type="password" name="pass" id="pass" required/>
+                </div>
 
-                    <div class="form-group">
-                        <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-                        <label for="agree-term" class="label-agree-term"><span><span></span></span>Saya setuju terhadap
-                            pernyataan pada <a href="#" class="term-service">Syarat Pelayanan</a></label>
-                    </div>
-                    <span class="alert d-none" id="alert">Silahkan centang persetujuan anda</span>
-                    <div class="form-textbox">
-                        <input onclick="isChecked()" name="submit" id="submit" class="submit" value="Buat Akun" />
-                    </div>
-                </form>
+                <div class="form-group">
+                    <input type="checkbox" name="agree-term" id="agree-term" class="agree-term"/>
+                    <label for="agree-term" class="label-agree-term"><span><span></span></span>Saya setuju terhadap
+                        pernyataan pada <a href="#" class="term-service">Syarat Pelayanan</a></label>
+                </div>
+                <span class="alert d-none" id="alert">Silahkan centang persetujuan anda</span>
+                <div class="form-textbox">
+                    <input onclick="isChecked()" name="submit" id="submit" class="submit" value="Buat Akun"/>
+                </div>
+            </form>
 
-                <p class="loginhere">
-                    Sudah memiliki akun ?<a href="http://bafrontend.gerrysihaj.com/" class="loginhere-link"> Masuk</a>
-                </p>
-            </div>
+            <p class="loginhere">
+                Sudah memiliki akun ?<a href="http://bafrontend.gerrysihaj.com/" class="loginhere-link"> Masuk</a>
+            </p>
         </div>
-
     </div>
+
+</div>
 
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
 </html>
 
 <script>
-    function reg() {
-        let name = document.getElementById('name').val;
-        let email = document.getElementById('email').val;
-        let pass = document.getElementById('pass').val;
-        let body = {
-            'name': name,
-            'email': email,
-            'pass': pass
-        };
-        
-        $.ajax({
-            url: "http://bafrontend.gerrysihaj.com/api/register",
-            type: "POST",
-            data: body,
-            headers: {
-                'Access-Control-Allow-Origin': '*'
-            },
-            contentType: "application/json",
-            success: function (data) {
-                console.log('yeyyy');
-                console.log(data);
-            }
-        });
-    }
+	function reg () {
+		let name = document.getElementById('name').value
+		let email = document.getElementById('email').value
+		let pass = document.getElementById('pass').value
+		let body = {
+			'name': name,
+			'email': email,
+			'password': pass
+		}
 
-    function isChecked() {
-        let check = document.getElementById('agree-term').checked;
-        if (check == true) {
-            reg();
-            return true;
-        }
-        $("#alert").removeClass('d-none');
-        return false;
-    }
+		$.ajax({
+			url: 'http://bapi.gerrysihaj.com/api/register',
+			type: 'POST',
+			data: body,
+			headers: {
+				'Access-Control-Allow-Origin': '*'
+			},
+			success: function (data) {
+				console.log('yeyyy')
+				console.log(data)
+			}
+		})
+	}
+
+	function isChecked () {
+		let check = document.getElementById('agree-term').checked
+		if (check == true) {
+			reg()
+			return true
+		}
+		$('#alert').removeClass('d-none')
+		return false
+	}
 
 </script>
